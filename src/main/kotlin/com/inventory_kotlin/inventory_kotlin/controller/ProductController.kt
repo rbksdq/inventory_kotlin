@@ -3,25 +3,22 @@ package com.inventory_kotlin.inventory_kotlin.controller
 import com.inventory_kotlin.inventory_kotlin.dto.ProductDto
 import com.inventory_kotlin.inventory_kotlin.entity.Product
 import com.inventory_kotlin.inventory_kotlin.repository.ProductRepo
+import com.inventory_kotlin.inventory_kotlin.service.ProductService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
-//@RequestMapping(value = "/products")
+@RequestMapping(value = ["/products"], method = [RequestMethod.GET])
 class ProductController(val productRepo: ProductRepo) {
 
-    @GetMapping("/products")
-    fun getAllProducts():
-            ResponseEntity<List<ProductDto>>{
-        val products= productRepo.findAll()
-        if (products.isEmpty()){
-            return ResponseEntity<List<ProductDto>>(HttpStatus.NO_CONTENT)
-        }
-        return ResponseEntity<List<ProductDto>>(products, HttpStatus.OK)
-    }
+    @GetMapping()
+    fun findAll() = productRepo.findAll()
+
+    /*@PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    fun addUser(@RequestBody pro: Product) =
+        Product.createFromUserModel(productRepo.addUser(pro.toUserModel()))*/
 
 
 }
