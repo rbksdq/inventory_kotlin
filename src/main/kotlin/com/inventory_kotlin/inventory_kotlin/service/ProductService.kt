@@ -6,4 +6,5 @@ import com.inventory_kotlin.inventory_kotlin.entity.Product
 interface ProductService {
     fun findAll(): List<ProductDto>
     fun addUser(pro: ProductDto): Product
+    fun findByProductName(pro: ProductDto): Product?
 }

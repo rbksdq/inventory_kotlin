@@ -20,5 +20,13 @@ class ProductController(val productRepo: ProductRepo) {
     fun addUser(@RequestBody pro: Product) =
         Product.createFromUserModel(productRepo.addUser(pro.toUserModel()))*/
 
+    @GetMapping("/products/{id}")
+    fun fetchProductsById(@PathVariable("id") productId: Long): ResponseEntity<Product> {
+        val product = productRepo.findById(productId)
+        if (product.isPresent) {
+            return ResponseEntity<Product>(product.get(), HttpStatus.OK)
+        }
+        return ResponseEntity<Product>(HttpStatus.NOT_FOUND)
+    }
 
 }
